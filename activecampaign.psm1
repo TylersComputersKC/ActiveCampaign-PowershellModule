@@ -40,36 +40,6 @@ Function Get-ACContact {
     return $contacts
 }
 
-Function Get-ACContactByCriteria {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string] $Criteria,
-        [Parameter(Mandatory=$true)]
-        [string] $Value
-    )
-
-    # Check if the API key and URL have been set
-    if (!$global:ActiveCampaignApiKey) {
-        Write-Error "ActiveCampaign API key not set. Use Connect-ActiveCampaign to set the API key."
-        return
-    }
-
-    if (!$global:ActiveCampaignUrl) {
-        Write-Error "ActiveCampaign URL not set. Use Connect-ActiveCampaign to set the URL."
-        return
-    }
-
-    # Build the URL to retrieve the contact
-    $url = "$($global:ActiveCampaignUrl)/api/3/contacts/sync?searchField=$Criteria&searchValue=$Value"
-
-    # Send a GET request to retrieve the contact
-    $response = Invoke-WebRequest -Uri $url -Headers @{ "Api-Token" = $global:ActiveCampaignApiKey } -Method Get
-
-    # Parse the JSON response and return the contact
-    $contact = ($response.Content | ConvertFrom-Json).contacts
-    return $contact
-}
-
 Function New-ACContact {
     param(
         [Parameter(Mandatory=$true)]
@@ -119,4 +89,4 @@ Function New-ACContact {
 
 
 # Export the functions in the module so they can be used in other scripts
-Export-ModuleMember -Function Connect-ActiveCampaign, Get-ACContact, New-ACContact, Get-ACContactByCriteria
+Export-ModuleMember -Function Connect-ActiveCampaign, Get-ACContact, New-ACContact
