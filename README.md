@@ -1,5 +1,5 @@
 # ActiveCampaignModule
-Powershell Module for ActiveCampaign
+Powershell Module to manage contacts in ActiveCampaign
 
 # Connect to the ActiveCampaign API
 Connect-ActiveCampaign -ApiKey "your_api_key" -Url "https://your_account.api-us1.com"
